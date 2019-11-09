@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
+  devise_for :users
+  resources :comments
   get 'pages/info'
-  resources :ideas
+  resources :ideas do
+    collection do
+      get :list_ideas
+    end
+  end
   root to: redirect('/ideas')
 
   get "pages/info"

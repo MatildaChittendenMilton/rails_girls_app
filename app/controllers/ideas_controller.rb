@@ -7,9 +7,16 @@ class IdeasController < ApplicationController
     @ideas = Idea.all
   end
 
+  def list_ideas
+    render json: Idea.all.to_json
+  end
+
   # GET /ideas/1
   # GET /ideas/1.json
   def show
+    @comments = @idea.comments.all
+    @comment = @idea.comments.build
+    @asset = @idea.picture
   end
 
   # GET /ideas/new
@@ -69,6 +76,6 @@ class IdeasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def idea_params
-      params.require(:idea).permit(:name, :description, :picture)
+      params.require(:idea).permit(:name, :description, :picture, :vote)
     end
 end
